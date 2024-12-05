@@ -1,0 +1,10 @@
+.dynamic-form{
+    display: flex;
+    gap: 1rem;
+    justify-items:center ;
+}
+.form-group{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}

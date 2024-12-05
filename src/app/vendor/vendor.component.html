@@ -1,0 +1,35 @@
+<div style="padding: 2%">
+  <h1>Vendor View</h1>
+
+  <p-tabView>
+    <!-- Released Tickets Tab -->
+    <p-tabPanel header="Released Tickets">
+      <div
+        style="
+          display: flex;
+          justify-content: flex-end;
+          margin-bottom: 1rem;
+        "
+      >
+        <button
+          pButton
+          type="button"
+          label="Add"
+          icon="pi pi-sign-in"
+        ></button>
+      </div>
+      <app-table
+        [headers]="releasedTicketsHeaders"
+        [data]="releasedTickets"
+      ></app-table>
+    </p-tabPanel>
+
+    <!-- Purchased Tickets Tab -->
+    <p-tabPanel header="Purchased Tickets">
+      <app-table
+        [headers]="purchasedTicketsHeaders"
+        [data]="purchasedTickets"
+      ></app-table>
+    </p-tabPanel>
+  </p-tabView>
+</div>

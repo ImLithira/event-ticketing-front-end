@@ -1,0 +1,29 @@
+<div style="padding: 2%;">
+  <h1>Admin View</h1>
+
+  <p-tabView>
+    <!-- Configurations Tab -->
+    <p-tabPanel header="Configurations">
+      <app-form
+        [config]="dynamicFormConfig"
+        (formSubmit)="handleFormSubmit($event)"
+      ></app-form>
+    </p-tabPanel>
+
+    <!-- Released Tickets Tab -->
+    <p-tabPanel header="Released Tickets">
+      <app-table
+        [headers]="releasedTicketsHeaders"
+        [data]="releasedTickets"
+      ></app-table>
+    </p-tabPanel>
+
+    <!-- Purchased Tickets Tab -->
+    <p-tabPanel header="Purchased Tickets">
+      <app-table
+        [headers]="purchasedTicketsHeaders"
+        [data]="purchasedTickets"
+      ></app-table>
+    </p-tabPanel>
+  </p-tabView>
+</div>

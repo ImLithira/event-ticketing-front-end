@@ -1,0 +1,54 @@
+<div class="app--form">
+  <h3>Dynamic Configuration Form</h3>
+  <form
+    class="dynamic-form"
+    (ngSubmit)="onSubmit()"
+    #dynamicForm="ngForm"
+  >
+    <div
+      class="form-group"
+      *ngFor="let field of config.fields"
+    >
+      <label [for]="field.name">{{ field.label }}</label>
+
+      <!-- Text Input -->
+      <input
+        [value]="field.value"
+        *ngIf="field.type === 'text'"
+        [id]="field.name"
+        [name]="field.name"
+        type="text"
+        [(ngModel)]="formData[field.name]"
+        pInputText
+        [disabled]="field.disabled ?? false"
+        [required]="field.required ?? false"
+        style="width: 250px"
+      />
+
+      <!-- Dropdown -->
+      <p-dropdown
+        *ngIf="field.type === 'select'"
+        [id]="field.name"
+        [name]="field.name"
+        [(ngModel)]="formData[field.name]"
+        [required]="field.required ?? false"
+      ></p-dropdown>
+
+      <!-- Checkbox -->
+      <!-- <p-checkbox
+          *ngIf="field.type === 'checkbox'"
+          [id]="field.name"
+          [binary]="true"
+          [(ngModel)]="formData[field.name]"
+        ></p-checkbox> -->
+    </div>
+
+    <button
+      *ngIf="config.isSubmittable"
+      type="submit"
+      pButton
+      label="Submit"
+      [disabled]="!dynamicForm.valid"
+    ></button>
+  </form>
+</div>

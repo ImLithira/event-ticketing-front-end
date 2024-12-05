@@ -1,0 +1,18 @@
+.dynamic-form{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-items:center ;
+    max-width: 450px;
+}
+.form-group{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+@media (max-width: 1200px) {
+    .dynamic-form {
+      /* flex-direction: column;  */
+      /* Column layout on small screens */
+    }
+  }
