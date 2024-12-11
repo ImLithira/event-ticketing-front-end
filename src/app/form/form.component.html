@@ -1,5 +1,5 @@
 <div class="app--form">
-  <h3>Dynamic Configuration Form</h3>
+  <h3>Configurations</h3>
   <form
     class="dynamic-form"
     (ngSubmit)="onSubmit()"
@@ -22,7 +22,7 @@
         pInputText
         [disabled]="field.disabled ?? false"
         [required]="field.required ?? false"
-        style="width: 250px"
+        style="width: 100%"
       />
 
       <!-- Dropdown -->
@@ -34,13 +34,6 @@
         [required]="field.required ?? false"
       ></p-dropdown>
 
-      <!-- Checkbox -->
-      <!-- <p-checkbox
-          *ngIf="field.type === 'checkbox'"
-          [id]="field.name"
-          [binary]="true"
-          [(ngModel)]="formData[field.name]"
-        ></p-checkbox> -->
     </div>
 
     <button

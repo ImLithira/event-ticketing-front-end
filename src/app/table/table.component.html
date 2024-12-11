@@ -1,7 +1,36 @@
 <p-table
+  #dt1
   [value]="data"
   [tableStyle]="{ 'min-width': '50rem' }"
+  [rows]="10"
+  [paginator]="true"
+  [globalFilterFields]="globalFilterFields"
 >
+  <!-- Caption with global search and clear button -->
+  <ng-template pTemplate="caption">
+    <div style="display: flex; gap: 5px; justify-content: flex-end;">
+      <!-- Global Search Input -->
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="searchValue"
+          (input)="onInputChange($event)"
+          placeholder="Search keyword"
+          style="height: 2rem;"
+        />
+
+      <!-- Clear Button -->
+      <p-button
+        label="Clear"
+        [outlined]="true"
+        (onClick)="clear(dt1)"
+        styleClass="pill"
+
+      ></p-button>
+    </div>
+  </ng-template>
+
+  <!-- Table Header -->
   <ng-template pTemplate="header">
     <tr>
       <th *ngFor="let header of headers">
@@ -9,6 +38,8 @@
       </th>
     </tr>
   </ng-template>
+
+  <!-- Table Body -->
   <ng-template pTemplate="body" let-row>
     <tr>
       <td *ngFor="let header of headers">
@@ -16,4 +47,9 @@
       </td>
     </tr>
   </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr >
+        <td colspan="5">No Results.</td>
+    </tr>
+</ng-template>
 </p-table>

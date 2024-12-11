@@ -1,10 +1,13 @@
 .dynamic-form{
     display: flex;
+    flex-direction: row;
     gap: 1rem;
     justify-items:center ;
+    max-width: 1000px;
 }
 .form-group{
     display: flex;
     gap: 5px;
     align-items: center;
 }
+
