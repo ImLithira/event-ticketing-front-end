@@ -1,7 +1,38 @@
 <div style="padding: 2%">
-  <h1>Vendor View</h1>
+  <div
+    style="display: flex; justify-content: space-between; align-items: center; margin-right: 1.1rem;"
+  >
+    <h1 style="margin: 1rem">Vendor View</h1>
+    <p-button 
+    styleClass="pillBlue"
+      label="Back"
+      (click)="goBack()"
+    ></p-button>
+  </div>
 
   <p-tabView>
+    <!-- Configurations Tab -->
+    <p-tabPanel header="Configurations">
+      <div
+        style="
+          display: flex;
+          justify-content: flex-end;
+          margin-bottom: 1rem;
+          
+        "
+      >
+        <p-button
+          styleClass="pillBlue"
+          type="button"
+          label="Add Vendor"
+          (click)="addVendor()"
+        ></p-button>
+      </div>
+      <div>
+        <app-form [config]="dynamicFormConfig"></app-form>
+      </div>
+    </p-tabPanel>
+
     <!-- Released Tickets Tab -->
     <p-tabPanel header="Released Tickets">
       <div
@@ -11,12 +42,12 @@
           margin-bottom: 1rem;
         "
       >
-        <button
-          pButton
+        <p-button
+          styleClass="pillBlue"
           type="button"
-          label="Add"
-          icon="pi pi-sign-in"
-        ></button>
+          label="Refresh"
+          (click)="getAllTickets()"
+        ></p-button>
       </div>
       <app-table
         [headers]="releasedTicketsHeaders"
@@ -26,6 +57,20 @@
 
     <!-- Purchased Tickets Tab -->
     <p-tabPanel header="Purchased Tickets">
+      <div
+        style="
+          display: flex;
+          justify-content: flex-end;
+          margin-bottom: 1rem;
+        "
+      >
+        <p-button
+          styleClass="pillBlue"
+          type="button"
+          label="Refresh"
+          (click)="getPurchasedTickets()"
+        ></p-button>
+      </div>
       <app-table
         [headers]="purchasedTicketsHeaders"
         [data]="purchasedTickets"

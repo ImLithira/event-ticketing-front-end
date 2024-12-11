@@ -1,17 +1,110 @@
-<div style="padding: 2%;">
-  <h1>Admin View</h1>
+<div style="padding: 2%">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-right: 1.1rem;
+    "
+  >
+    <h1 style="margin: 1rem">Admin View</h1>
+    <p-button
+      styleClass="pill"
+      label="Back"
+      (click)="goBack()"
+    ></p-button>
+  </div>
 
   <p-tabView>
     <!-- Configurations Tab -->
     <p-tabPanel header="Configurations">
-      <app-form
-        [config]="dynamicFormConfig"
-        (formSubmit)="handleFormSubmit($event)"
-      ></app-form>
+      <div class="content">
+        <app-form
+          [config]="dynamicFormConfig"
+          (formSubmit)="handleFormSubmit($event)"
+        ></app-form>
+        <div
+          class="divider"
+          role="separator"
+          aria-label="Divider"
+        ></div>
+        <div
+          style="
+            display: flex;
+            gap: 2rem;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 2rem;
+          "
+        >
+          Control Panel
+
+          <div
+            style="
+              display: flex;
+              flex-direction: row;
+              gap: 1rem;
+            "
+          >
+            <p-button
+              styleClass="pill"
+              type="button"
+              label="Start"
+              [disabled]="isStarted"
+              (click)="startSystem()"
+            ></p-button>
+            <p-button
+              styleClass="pill"
+              type="button"
+              [disabled]="!isStarted"
+              label="Stop"
+              (click)="stopSystem()"
+            ></p-button>
+          </div>
+
+          Add Vendor/Customer
+          <div
+            style="
+              display: flex;
+              flex-direction: row;
+              gap: 1rem;
+            "
+          >
+            <p-button
+              styleClass="pillBlue"
+              type="button"
+              [disabled]="!isStarted"
+              label="Add Vendor"
+              (click)="addVendor()"
+            ></p-button>
+            <p-button
+              styleClass="pillBlack"
+              type="button"
+              [disabled]="!isStarted || !releasedTicket"
+              label="Add Customer"
+              (click)="addCustomer()"
+            ></p-button>
+          </div>
+        </div>
+      </div>
     </p-tabPanel>
 
     <!-- Released Tickets Tab -->
     <p-tabPanel header="Released Tickets">
+      <div
+        style="
+          display: flex;
+          justify-content: flex-end;
+          margin-bottom: 1rem;
+        "
+      >
+        <p-button
+          styleClass="pill"
+          type="button"
+          label="Refresh"
+          (click)="getAllTickets()"
+        ></p-button>
+      </div>
       <app-table
         [headers]="releasedTicketsHeaders"
         [data]="releasedTickets"
@@ -20,10 +113,47 @@
 
     <!-- Purchased Tickets Tab -->
     <p-tabPanel header="Purchased Tickets">
+      <div
+        style="
+          display: flex;
+          justify-content: flex-end;
+          margin-bottom: 1rem;
+        "
+      >
+        <p-button
+          styleClass="pill"
+          type="button"
+          label="Refresh"
+          (click)="getPurchasedTickets()"
+        ></p-button>
+      </div>
       <app-table
         [headers]="purchasedTicketsHeaders"
         [data]="purchasedTickets"
       ></app-table>
     </p-tabPanel>
+
+    <!-- Logs Tab -->
+    <p-tabPanel header="Event Logs">
+      <div
+        style="
+          display: flex;
+          justify-content: flex-end;
+          margin-bottom: 1rem;
+        "
+      >
+        <p-button
+          styleClass="pill"
+          type="button"
+          label="Refresh"
+          (click)="getEventLogs()"
+        ></p-button>
+      </div>
+      <app-table
+        [headers]="eventLogsHeaders"
+        [data]="eventLogs"
+      ></app-table>
+    </p-tabPanel>
   </p-tabView>
+
 </div>

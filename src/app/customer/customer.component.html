@@ -1,25 +1,75 @@
 <div style="padding: 2%;">
-    <h1>Customer View</h1>
+  <div
+  style="display: flex; justify-content: space-between; align-items: center; margin-right: 1.1rem;"
+>
+  <h1 style="margin: 1rem">Customer View</h1>
+  <p-button 
+  styleClass="pillBlack"
+    label="Back"
+    (click)="goBack()"
+  ></p-button>
+</div>
   
     <p-tabView>
       <!-- Configurations Tab -->
-      <p-tabPanel header="Configurations">
-        <!-- <app-form
-          [config]="dynamicFormConfig"
-          (formSubmit)="handleFormSubmit($event)"
-        ></app-form> -->
-      </p-tabPanel>
+    <p-tabPanel header="Configurations">
+      <div
+        style="
+          display: flex;
+          justify-content: flex-end;
+          margin-bottom: 1rem;
+        "
+      >
+      <p-button styleClass="pillBlack"
+      type="button"
+      label="Add Customer"
+      (click)="addCustomer()"
+    ></p-button>
+      </div>
+      <div>
+        <app-form
+        [config]="dynamicFormConfig"
+      ></app-form>
+      </div>
+    </p-tabPanel>
   
-      <!-- Released Tickets Tab -->
-      <p-tabPanel header="Released Tickets">
+      <!-- Available Tickets Tab -->
+      <p-tabPanel header="Available Tickets">
+        <div
+        style="
+          display: flex;
+          justify-content: flex-end;
+          margin-bottom: 1rem;
+        "
+      >
+        <p-button styleClass="pillBlack"
+            type="button"
+            label="Refresh"
+            (click)="getAvailavbleTickets()"
+          ></p-button>
+      </div>
         <app-table
-          [headers]="releasedTicketsHeaders"
-          [data]="releasedTickets"
+          [headers]="availableTicketsHeaders"
+          [data]="availableTickets"
         ></app-table>
+      
       </p-tabPanel>
   
       <!-- Purchased Tickets Tab -->
       <p-tabPanel header="Purchased Tickets">
+        <div
+        style="
+          display: flex;
+          justify-content: flex-end;
+          margin-bottom: 1rem;
+        "
+      >
+        <p-button styleClass="pillBlack"
+            type="button"
+            label="Refresh"
+            (click)="getPurchasedTickets()"
+          ></p-button>
+      </div>
         <app-table
           [headers]="purchasedTicketsHeaders"
           [data]="purchasedTickets"

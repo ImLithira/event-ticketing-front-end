@@ -3,6 +3,12 @@ import { Component, Input } from '@angular/core';
 import { TabViewModule } from 'primeng/tabview';
 import { FormComponent } from '../form/form.component';
 import { TableComponent } from '../table/table.component';
+import { Subscription, timer } from 'rxjs';
+import { MessageService } from 'primeng/api';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-customer',
@@ -12,50 +18,216 @@ import { TableComponent } from '../table/table.component';
     TabViewModule,
     TableComponent,
     FormComponent,
+    ButtonModule,
   ],
+  providers: [MessageService],
   templateUrl: './customer.component.html',
+  styleUrls: ['./customer.component.css'],
 })
 export class CustomerComponent {
-  releasedTicketsHeaders = [
-    { label: 'Ticket ID', code: 'ticketID' },
+  private subscription: Subscription | null = null;
+
+  constructor(
+    private location: Location,
+    private http: HttpClient,
+    private messageService: MessageService,
+  ) {}
+
+  dynamicFormConfig = {
+    isSubmittable: false,
+    fields: [
+      {
+        name: 'totalTickets',
+        label: 'Total Tickets',
+        type: 'text',
+        value: '',
+        required: true,
+        disabled: true,
+      },
+      {
+        name: 'maxTicketCapacity',
+        label: 'Max Ticket Capacity',
+        type: 'text',
+        value: '',
+        required: true,
+        disabled: true,
+      },
+      {
+        name: 'customerRetrievalRate',
+        label: 'Customer Retrieval Rate',
+        type: 'text',
+        value: '',
+        required: true,
+        disabled: true,
+      },
+    ],
+  };
+
+  availableTicketsHeaders = [
+    { label: 'Ticket ID', code: 'ticketId' },
     { label: 'Ticket Name', code: 'ticketName' },
     { label: 'Ticket Type', code: 'ticketType' },
-    { label: 'Released Date/time', code: 'releasedDate' },
+    { label: 'Vendor Name', code: 'vendorName' },
+    { label: 'Released Date/time', code: 'releaseDate' },
   ];
-  releasedTickets = [
+  availableTickets = [
     {
-      ticketID: 'RT001',
-      ticketName: 'Ticket 1',
-      ticketType: 'Category A',
-      releasedDate: '',
-    },
-    {
-      ticketID: 'RT00ks1',
-      ticketName: 'Tickedsflkdt 1',
-      ticketType: 'Category Afdf',
-      releasedDate: '',
+      ticketId: '',
+      ticketName: '',
+      ticketType: '',
+      vendorName: '',
+      releaseDate: '',
     },
   ];
 
   purchasedTicketsHeaders = [
-    { label: 'Ticket ID', code: 'ticketID' },
+    { label: 'Ticket ID', code: 'ticketId' },
     { label: 'Ticket Name', code: 'ticketName' },
     { label: 'Ticket Type', code: 'ticketType' },
-    { label: 'Released Date/time', code: 'releasedDate' },
-    { label: 'purchased Date/time', code: 'purchasedDate' },
+    { label: 'Vendor Name', code: 'vendorName' },
+    { label: 'Customer Name', code: 'customerName' },
+    { label: 'Released Date/time', code: 'releaseDate' },
+    { label: 'Purchased Date/time', code: 'purchaseDate' },
   ];
   purchasedTickets = [
     {
-      ticketID: 'RT001dff',
-      ticketName: 'Ticket 1',
-      ticketType: 'Category A',
-      releasedDate: '',purchasedDate:''
-    },
-    {
-      ticketID: 'RT00ks1ff',
-      ticketName: 'Tickedsflkdt 1',
-      ticketType: 'Category Afdf',
-      releasedDate: '',purchasedDate:new Date()
+      ticketId: '',
+      ticketName: '',
+      ticketType: '',
+      vendorName: '',
+      customerName: '',
+      releaseDate: '',
+      purchaseDate: '',
     },
   ];
+
+  goBack(): void {
+    this.location.back(); // This will navigate to the previous page
+  }
+
+  async addCustomer() {
+    this.http
+      .post(
+        'http://localhost:8080/api/admin/add-customer',
+        {},
+      )
+      .subscribe({
+        next: (response: any) => {
+          this.showSuccessMessage(response.message);
+        },
+        error: () => {
+          this.showErrorMessage(
+            'Error when adding a customer',
+          );
+        },
+      });
+  }
+
+  async getAvailavbleTickets(): Promise<void> {
+    this.http
+      .get<
+        any[]
+      >('http://localhost:8080/api/customer/available-tickets')
+      .subscribe({
+        next: (data: any[]) => {
+          console.log('API Data:', data);
+
+          // Transform and store the fetched tickets
+          this.availableTickets = data.map(ticket => ({
+            ticketId: ticket.ticketId || '',
+            ticketName: ticket.ticketName || '',
+            ticketType: ticket.ticketType || '',
+            vendorName: ticket.vendorName || '',
+            releaseDate: ticket.releaseDate || '',
+          }));
+
+          console.log(
+            'Released Tickets:',
+            this.availableTickets,
+          );
+        },
+        error: err =>
+          console.error('Error fetching data:', err),
+      });
+
+    console.log('Started API calls.');
+  }
+
+  getPurchasedTickets() {
+    this.http
+      .get<
+        any[]
+      >('http://localhost:8080/api/admin/tickets/purchased')
+      .subscribe({
+        next: (data: any[]) => {
+          console.log('API Data:', data);
+
+          // Transform and store the fetched tickets
+          this.purchasedTickets = data.map(
+            (ticket: any) => ({
+              ticketId: ticket.ticketId || '', // Map API field to local structure
+              ticketName: ticket.ticketName || '',
+              ticketType: ticket.ticketType || '',
+              vendorName: ticket.vendorName || '',
+              customerName: ticket.customerName || '',
+              releaseDate: ticket.releaseDate || '',
+              purchaseDate: ticket.purchaseDate || '',
+            }),
+          );
+
+          console.log(
+            'Purchased Tickets:',
+            this.purchasedTickets,
+          );
+        },
+        error: err =>
+          console.error('Error fetching data:', err),
+      });
+  }
+
+  showSuccessMessage(message: string) {
+    this.messageService.add({
+      severity: 'success',
+      detail: message,
+    });
+  }
+
+  showErrorMessage(message: string) {
+    this.messageService.add({
+      severity: 'error',
+      detail: message,
+    });
+  }
+
+  fetchConfigurations() {
+    this.http
+      .get<any>(
+        'http://localhost:8080/api/admin/configurations',
+        {},
+      )
+      .subscribe({
+        next: response => {
+          console.log('Fetched configurations:', response);
+          this.dynamicFormConfig.fields.forEach(field => {
+            if (field.name in response) {
+              field.value =
+                response[field.name as keyof any];
+            }
+          });
+        },
+        error: err => {
+          console.error(
+            'Error fetching configurations:',
+            err,
+          );
+          this.showErrorMessage(
+            'Failed to fetch configurations.',
+          );
+        },
+      });
+  }
+
+  ngOnInit() {
+    this.fetchConfigurations();
+  }
 }
