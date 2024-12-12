@@ -1,3 +1,9 @@
+/**
+ * NAME: Aththanayake Lithira Senath Dasnaka Fernando
+ * UoW ID: w1959880
+ * IIT ID: 20223095
+ */
+
 .card {
     display: flex;
     justify-content: center;
@@ -7,7 +13,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px; /* Equivalent to gap-2 */
+    gap: 8px; 
 }
 
 .dialog-title {
@@ -16,27 +22,27 @@
 }
 
 .dialog-secondary-text {
-    color: #6b7280; /* Replace with your preferred secondary text color */
+    color: #6b7280; 
     display: block;
-    margin-bottom: 20px; /* Equivalent to mb-5 */
+    margin-bottom: 20px; 
 }
 
 .form-group {
     display: flex;
     align-items: center;
-    gap: 12px; /* Equivalent to gap-3 */
-    margin-bottom: 12px; /* Equivalent to mb-3 */
+    gap: 12px; 
+    margin-bottom: 12px; 
 }
 
 .form-group.last {
-    margin-bottom: 20px; /* Equivalent to mb-5 */
+    margin-bottom: 20px; 
 }
 
 .form-label {
-    font-weight: 600; /* Equivalent to font-semibold */
-    width: 96px; /* Equivalent to w-6rem */
+    font-weight: 600; 
+    width: 96px; 
 }
 
 .form-input {
-    flex: 1 1 auto; /* Equivalent to flex-auto */
+    flex: 1 1 auto; 
 }

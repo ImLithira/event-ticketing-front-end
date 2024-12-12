@@ -1,3 +1,8 @@
+<!-- 
+  NAME: Aththanayake Lithira Senath Dasnaka Fernando
+  UoW ID: w1959880
+  IIT ID: 20223095 -->
+
 <div class="app--form">
   <h3>Configurations</h3>
   <form
@@ -17,8 +22,9 @@
         *ngIf="field.type === 'text'"
         [id]="field.name"
         [name]="field.name"
-        type="text"
+        type="number"
         [(ngModel)]="formData[field.name]"
+        (ngModelChange)="onInputChange()"
         pInputText
         [disabled]="field.disabled ?? false"
         [required]="field.required ?? false"
@@ -31,9 +37,9 @@
         [id]="field.name"
         [name]="field.name"
         [(ngModel)]="formData[field.name]"
+        (ngModelChange)="onInputChange()"
         [required]="field.required ?? false"
       ></p-dropdown>
-
     </div>
 
     <button
@@ -41,7 +47,8 @@
       type="submit"
       pButton
       label="Submit"
-      [disabled]="!dynamicForm.valid"
+      [disabled]="!dynamicForm.valid || !hasChanges || isSubmitted"
     ></button>
   </form>
 </div>
+

@@ -1,3 +1,9 @@
+/**
+ * NAME: Aththanayake Lithira Senath Dasnaka Fernando
+ * UoW ID: w1959880
+ * IIT ID: 20223095
+ */
+
 .dynamic-form{
     display: flex;
     flex-direction: column;
@@ -18,21 +24,21 @@
   text-align: left;
   max-width: 500px;
   width: 100%;
-  margin-bottom: 0.5rem; /* Adjust the spacing between the label and the input */
+  margin-bottom: 0.5rem; 
 }
 
 .form-group input,
 .form-group p-dropdown {
   width: 100%;
   max-width: 500px;
-  padding: 0.5rem; /* Add padding for better appearance */
+  padding: 0.5rem; 
 }
 
 button {
-  align-self: center; /* Center the submit button */
-  width: 100%; /* Ensure the button takes the full width */
-  max-width: 500px; /* Match the form field width */
-  padding: 0.8rem; /* Add padding to the button */
+  align-self: center; 
+  width: 100%; 
+  max-width: 500px; 
+  padding: 0.8rem; 
   margin-top: 1rem;
 }
 

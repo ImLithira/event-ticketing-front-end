@@ -1,3 +1,9 @@
+/**
+ * NAME: Aththanayake Lithira Senath Dasnaka Fernando
+ * UoW ID: w1959880
+ * IIT ID: 20223095
+ */
+
 import { CommonModule } from '@angular/common';
 import {
   HttpClient,
@@ -31,26 +37,6 @@ export class HomeComponent {
     { title: 'Customer', link: '/customer' },
   ];
 
-  // // Store credentials
-  // credentials = {
-  //   role: '', // Selected role/type
-  //   username: '',
-  //   password: '',
-  // };
-
-  // Options for roles
-  // loginOptions = ['Admin', 'Vendor', 'Customer'];
-
-  // // Feedback for user
-  // errorMessage: string | null = null;
-  // cities: any[] | undefined;
-  // // router:Router ;
-  // selectedCity: any | undefined;
-  // constructor(
-  //   private http: HttpClient,
-  //   // private router: Router
-  // ) {}
-
   colors: Record<ItemTitle, string> = {
     Admin: 'var(--mint)',
     Vendor: 'var(--blue)',
@@ -63,12 +49,5 @@ export class HomeComponent {
   ): string {
     return item.title;
   }
-  // changePillAccent(title: ItemTitle): void {
-  //   const color = this.colors[title]; // TypeScript now knows `title` matches a key in `colors`
-  //   document.documentElement.style.setProperty(
-  //     '--pill-accent',
-  //     color,
-  //   );
-  // }
 
 }

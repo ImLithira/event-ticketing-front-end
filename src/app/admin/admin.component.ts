@@ -1,3 +1,9 @@
+/**
+ * NAME: Aththanayake Lithira Senath Dasnaka Fernando
+ * UoW ID: w1959880
+ * IIT ID: 20223095
+ */
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabViewModule } from 'primeng/tabview';
@@ -50,6 +56,8 @@ interface PurchasedTicketsResponse {
   styleUrls: ['./admin.component.css'],
 })
 export class AdminComponent {
+  errorMessages: string[] = [];
+  successMessage: string = '';
   logs: string = '';
   isStarted: boolean = false;
   releasedTicket: boolean = false;
@@ -157,10 +165,10 @@ export class AdminComponent {
       .post('http://localhost:8080/api/admin/start', {})
       .subscribe({
         next: (response: any) => {
-          this.showSuccessMessage(response.message);
+          console.log('System Started!');
         },
         error: () => {
-          this.showErrorMessage('Error starting system');
+          console.log('Error starting system');
         },
       });
   }
@@ -175,16 +183,16 @@ export class AdminComponent {
       .post('http://localhost:8080/api/admin/stop', {})
       .subscribe({
         next: (response: any) => {
-          this.showSuccessMessage(response.message);
+          console.log('System Stopped!');
         },
         error: () => {
-          this.showErrorMessage('Error stopping system');
+          console.log('Error stopping system');
         },
       });
   }
 
   goBack(): void {
-    this.location.back(); // This will navigate to the previous page
+    this.location.back();
   }
 
   async addVendor() {
@@ -198,12 +206,10 @@ export class AdminComponent {
       )
       .subscribe({
         next: (response: any) => {
-          this.showSuccessMessage(response.message);
+          console.log('Vendor Added');
         },
         error: () => {
-          this.showErrorMessage(
-            'Error when adding a vendor',
-          );
+          console.log('Error Adding Vendor');
         },
       });
   }
@@ -216,38 +222,38 @@ export class AdminComponent {
       )
       .subscribe({
         next: (response: any) => {
-          this.showSuccessMessage(response.message);
+          console.log('Customer Added');
         },
         error: () => {
-          this.showErrorMessage(
-            'Error when adding a customer',
-          );
+          console.log('Error Adding Customer');
         },
       });
   }
 
   handleFormSubmit(formData: any) {
+    this.errorMessages = [];
+    this.successMessage = '';
     this.http
       .post<ConfigurationResponse>(
-        'http://localhost:8080/api/admin/configurations',
+        'http://localhost:8080/api/admin/config',
         formData,
+        { observe: 'response' },
       )
       .subscribe({
         next: (response: any) => {
-          console.log('response: ', response);
+          if (response.status === 200) {
+            this.successMessage = response.body.message;
+          }
           this.dynamicFormConfig.fields.forEach(field => {
             if (response[field.name] !== undefined) {
-              field.value == response[field.name];
+              field.value = response[field.name];
             }
           });
-          this.showSuccessMessage(
-            'Configurations updated!',
-          );
         },
-        error: () => {
-          this.showErrorMessage(
-            'An error occurred. Please try again.',
-          );
+        error: error => {
+          if (Array.isArray(error.error)) {
+            this.errorMessages = error.error;
+          }
         },
       });
   }
@@ -257,13 +263,10 @@ export class AdminComponent {
       .get('http://localhost:8080/api/admin/logs1')
       .subscribe({
         next: (response: any) => {
-          console.log('API Response:', response);
           this.eventLogs = this.processData(response);
         },
-        error: () => {
-          this.showErrorMessage(
-            'Error when fetching event logs',
-          );
+        error: (error: any) => {
+          console.log(error);
         },
       });
   }
@@ -271,7 +274,6 @@ export class AdminComponent {
   // Function to process raw data and generate structured data for table
   processData(data: any[]): any[] {
     if (!data || !Array.isArray(data)) {
-      console.error('Invalid data:', data);
       return []; // Return an empty array if data is not valid
     }
 
@@ -280,7 +282,7 @@ export class AdminComponent {
       .map(entry => {
         let eventType = '';
         let message = '';
-        console.log(entry);
+
         // Handling string-based message
         if (typeof entry.message === 'string') {
           message = entry.message;
@@ -341,20 +343,6 @@ export class AdminComponent {
       });
   }
 
-  showSuccessMessage(message: string) {
-    this.messageService.add({
-      severity: 'success',
-      detail: message,
-    });
-  }
-
-  showErrorMessage(message: string) {
-    this.messageService.add({
-      severity: 'error',
-      detail: message,
-    });
-  }
-
   async getAllTickets(): Promise<void> {
     this.http
       .get<
@@ -362,8 +350,6 @@ export class AdminComponent {
       >('http://localhost:8080/api/admin/tickets/all')
       .subscribe({
         next: (data: ReleasedTicketsResponse[]) => {
-          console.log('API Data:', data);
-
           // Transform and store the fetched tickets
           this.releasedTickets = data.map(ticket => ({
             ticketId: ticket.ticketId || '',
@@ -372,11 +358,6 @@ export class AdminComponent {
             vendorName: ticket.vendorName || '',
             releaseDate: ticket.releaseDate || '',
           }));
-
-          console.log(
-            'Released Tickets:',
-            this.releasedTickets,
-          );
         },
         error: err =>
           console.error('Error fetching data:', err),
@@ -384,15 +365,11 @@ export class AdminComponent {
   }
 
   async addVendorButtonClick() {
-    console.log('Add Vendor Button Clicked');
     try {
       await Promise.all([
         this.addVendor(),
         this.getAllTickets(),
       ]);
-      console.log(
-        'Vendor added and tickets fetched successfully.',
-      );
     } catch (error) {
       console.error(
         'Error occurred during addVendorButtonClick:',
@@ -402,7 +379,6 @@ export class AdminComponent {
   }
 
   async addCustomerButtonClick() {
-    console.log('Add Customer Button Clicked');
     try {
       await Promise.all([
         this.addCustomer(),
@@ -426,8 +402,6 @@ export class AdminComponent {
       >('http://localhost:8080/api/admin/tickets/purchased')
       .subscribe({
         next: (data: PurchasedTicketsResponse[]) => {
-          console.log('API Data:', data);
-
           // Transform and store the fetched tickets
           this.purchasedTickets = data.map(
             (ticket: any) => ({
@@ -440,11 +414,6 @@ export class AdminComponent {
               purchaseDate: ticket.purchaseDate || '',
             }),
           );
-
-          console.log(
-            'Purchased Tickets:',
-            this.purchasedTickets,
-          );
         },
         error: err =>
           console.error('Error fetching data:', err),
@@ -454,12 +423,11 @@ export class AdminComponent {
   fetchConfigurations() {
     this.http
       .get<ConfigurationResponse>(
-        'http://localhost:8080/api/admin/configurations',
+        'http://localhost:8080/api/admin/config',
         {},
       )
       .subscribe({
         next: response => {
-          console.log('Fetched configurations:', response);
           this.dynamicFormConfig.fields.forEach(field => {
             if (field.name in response) {
               field.value =
@@ -473,9 +441,6 @@ export class AdminComponent {
           console.error(
             'Error fetching configurations:',
             err,
-          );
-          this.showErrorMessage(
-            'Failed to fetch configurations.',
           );
         },
       });
