@@ -1,18 +1,19 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { VendorComponent } from './vendor/vendor.component';
-import { CustomerComponent } from './customer/customer.component';
+/**
+ * NAME: Aththanayake Lithira Senath Dasnaka Fernando
+ * UoW ID: w1959880
+ * IIT ID: 20223095
+ */
+
+import { Routes } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
-import { LoginComponent } from './login/login.component';
+import { CustomerComponent } from './customer/customer.component';
 import { HomeComponent } from './home/home.component';
+import { VendorComponent } from './vendor/vendor.component';
 
 export const routes: Routes = [
-  // { path: 'home', component: HomeComponent },
   { path: 'admin', component: AdminComponent },
-  { path: 'login', component: LoginComponent },
   { path: 'vendor', component: VendorComponent },
   { path: 'customer', component: CustomerComponent },
   { path: 'home', component: HomeComponent },
   { path: '**', redirectTo: '/home' },
 ];
-

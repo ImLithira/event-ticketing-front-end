@@ -1,3 +1,9 @@
+/**
+ * NAME: Aththanayake Lithira Senath Dasnaka Fernando
+ * UoW ID: w1959880
+ * IIT ID: 20223095
+ */
+
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { TabViewModule } from 'primeng/tabview';
@@ -102,7 +108,7 @@ export class CustomerComponent {
   ];
 
   goBack(): void {
-    this.location.back(); // This will navigate to the previous page
+    this.location.back();
   }
 
   async addCustomer() {
@@ -113,12 +119,10 @@ export class CustomerComponent {
       )
       .subscribe({
         next: (response: any) => {
-          this.showSuccessMessage(response.message);
+          console.log('Customer Added');
         },
-        error: () => {
-          this.showErrorMessage(
-            'Error when adding a customer',
-          );
+        error: (e:any) => {
+          console.log(e);
         },
       });
   }
@@ -130,8 +134,6 @@ export class CustomerComponent {
       >('http://localhost:8080/api/customer/available-tickets')
       .subscribe({
         next: (data: any[]) => {
-          console.log('API Data:', data);
-
           // Transform and store the fetched tickets
           this.availableTickets = data.map(ticket => ({
             ticketId: ticket.ticketId || '',
@@ -140,17 +142,10 @@ export class CustomerComponent {
             vendorName: ticket.vendorName || '',
             releaseDate: ticket.releaseDate || '',
           }));
-
-          console.log(
-            'Released Tickets:',
-            this.availableTickets,
-          );
         },
         error: err =>
           console.error('Error fetching data:', err),
       });
-
-    console.log('Started API calls.');
   }
 
   getPurchasedTickets() {
@@ -160,8 +155,6 @@ export class CustomerComponent {
       >('http://localhost:8080/api/admin/tickets/purchased')
       .subscribe({
         next: (data: any[]) => {
-          console.log('API Data:', data);
-
           // Transform and store the fetched tickets
           this.purchasedTickets = data.map(
             (ticket: any) => ({
@@ -174,40 +167,20 @@ export class CustomerComponent {
               purchaseDate: ticket.purchaseDate || '',
             }),
           );
-
-          console.log(
-            'Purchased Tickets:',
-            this.purchasedTickets,
-          );
         },
         error: err =>
           console.error('Error fetching data:', err),
       });
   }
 
-  showSuccessMessage(message: string) {
-    this.messageService.add({
-      severity: 'success',
-      detail: message,
-    });
-  }
-
-  showErrorMessage(message: string) {
-    this.messageService.add({
-      severity: 'error',
-      detail: message,
-    });
-  }
-
   fetchConfigurations() {
     this.http
       .get<any>(
-        'http://localhost:8080/api/admin/configurations',
+        'http://localhost:8080/api/admin/config',
         {},
       )
       .subscribe({
         next: response => {
-          console.log('Fetched configurations:', response);
           this.dynamicFormConfig.fields.forEach(field => {
             if (field.name in response) {
               field.value =
@@ -219,9 +192,6 @@ export class CustomerComponent {
           console.error(
             'Error fetching configurations:',
             err,
-          );
-          this.showErrorMessage(
-            'Failed to fetch configurations.',
           );
         },
       });

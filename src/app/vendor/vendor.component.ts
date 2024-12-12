@@ -1,3 +1,9 @@
+/**
+ * NAME: Aththanayake Lithira Senath Dasnaka Fernando
+ * UoW ID: w1959880
+ * IIT ID: 20223095
+ */
+
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
@@ -52,10 +58,31 @@ export class VendorComponent {
   dynamicFormConfig = {
     isSubmittable: false,
     fields: [
-      { name: 'totalTickets', label: 'Total Tickets', type: 'text', value: '', required: true, disabled: true },
-      { name: 'maxTicketCapacity', label: 'Max Ticket Capacity', type: 'text', value: '', required: true, disabled: true },
-      { name: 'ticketReleaseRate', label: 'Ticket Release Rate', type: 'text', value: '', required: true, disabled: true },
-   ],
+      {
+        name: 'totalTickets',
+        label: 'Total Tickets',
+        type: 'text',
+        value: '',
+        required: true,
+        disabled: true,
+      },
+      {
+        name: 'maxTicketCapacity',
+        label: 'Max Ticket Capacity',
+        type: 'text',
+        value: '',
+        required: true,
+        disabled: true,
+      },
+      {
+        name: 'ticketReleaseRate',
+        label: 'Ticket Release Rate',
+        type: 'text',
+        value: '',
+        required: true,
+        disabled: true,
+      },
+    ],
   };
 
   releasedTicketsHeaders = [
@@ -92,7 +119,7 @@ export class VendorComponent {
       vendorName: '',
       customerName: '',
       releaseDate: '',
-      purchaseDate:''
+      purchaseDate: '',
     },
   ];
 
@@ -115,46 +142,50 @@ export class VendorComponent {
   }
 
   async getAllTickets(): Promise<void> {
-    this.http.get<any[]>('http://localhost:8080/api/admin/tickets/all').subscribe({
-      next: (data: any[]) => {
-        console.log('API Data:', data);
-        
-        // Transform and store the fetched tickets
-        this.releasedTickets = data.map((ticket) => ({
-          ticketId: ticket.ticketId || '',
-          ticketName: ticket.ticketName || '',
-          ticketType: ticket.ticketType || '',
-          vendorName: ticket.vendorName || '',
-          releaseDate: ticket.releaseDate || '',
-        }));
-
-        console.log('Released Tickets:', this.releasedTickets);
-      },
-      error: (err) => console.error('Error fetching data:', err),
-  })
-}
+    this.http
+      .get<
+        any[]
+      >('http://localhost:8080/api/admin/tickets/all')
+      .subscribe({
+        next: (data: any[]) => {
+          // Transform and store the fetched tickets
+          this.releasedTickets = data.map(ticket => ({
+            ticketId: ticket.ticketId || '',
+            ticketName: ticket.ticketName || '',
+            ticketType: ticket.ticketType || '',
+            vendorName: ticket.vendorName || '',
+            releaseDate: ticket.releaseDate || '',
+          }));
+        },
+        error: err =>
+          console.error('Error fetching data:', err),
+      });
+  }
 
   getPurchasedTickets() {
-    this.http.get<any[]>('http://localhost:8080/api/admin/tickets/purchased').subscribe({
-      next: (data: any[]) => {
-        console.log('API Data:', data);
-
-        // Transform and store the fetched tickets
-        this.purchasedTickets = data.map((ticket: any) => ({
-          ticketId: ticket.ticketId || '', // Map API field to local structure
-          ticketName: ticket.ticketName || '',
-          ticketType: ticket.ticketType || '',
-          vendorName: ticket.vendorName || '',
-          customerName: ticket.customerName || '',
-          releaseDate: ticket.releaseDate || '',
-          purchaseDate: ticket.purchaseDate || '',
-        }));
-
-        console.log('Purchased Tickets:', this.purchasedTickets);
-      },
-      error: (err) => console.error('Error fetching data:', err),
-  })
-}
+    this.http
+      .get<
+        any[]
+      >('http://localhost:8080/api/admin/tickets/purchased')
+      .subscribe({
+        next: (data: any[]) => {
+          // Transform and store the fetched tickets
+          this.purchasedTickets = data.map(
+            (ticket: any) => ({
+              ticketId: ticket.ticketId || '', // Map API field to local structure
+              ticketName: ticket.ticketName || '',
+              ticketType: ticket.ticketType || '',
+              vendorName: ticket.vendorName || '',
+              customerName: ticket.customerName || '',
+              releaseDate: ticket.releaseDate || '',
+              purchaseDate: ticket.purchaseDate || '',
+            }),
+          );
+        },
+        error: err =>
+          console.error('Error fetching data:', err),
+      });
+  }
 
   showSuccessMessage(message: string) {
     this.messageService.add({
@@ -172,26 +203,33 @@ export class VendorComponent {
 
   fetchConfigurations() {
     this.http
-      .get<any>('http://localhost:8080/api/admin/configurations', {
-      })
+      .get<any>(
+        'http://localhost:8080/api/admin/config',
+        {},
+      )
       .subscribe({
-        next: (response) => {
+        next: response => {
           console.log('Fetched configurations:', response);
-          this.dynamicFormConfig.fields.forEach((field) => {
+          this.dynamicFormConfig.fields.forEach(field => {
             if (field.name in response) {
-              field.value = response[field.name as keyof any];
+              field.value =
+                response[field.name as keyof any];
             }
           });
         },
-        error: (err) => {
-          console.error('Error fetching configurations:', err);
-          this.showErrorMessage('Failed to fetch configurations.');
+        error: err => {
+          console.error(
+            'Error fetching configurations:',
+            err,
+          );
+          this.showErrorMessage(
+            'Failed to fetch configurations.',
+          );
         },
       });
   }
-  
-  ngOnInit(){
+
+  ngOnInit() {
     this.fetchConfigurations();
   }
-
 }

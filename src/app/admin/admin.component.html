@@ -1,3 +1,8 @@
+<!-- 
+  NAME: Aththanayake Lithira Senath Dasnaka Fernando
+  UoW ID: w1959880
+  IIT ID: 20223095 -->
+ 
 <div style="padding: 2%">
   <div
     style="
@@ -18,6 +23,14 @@
   <p-tabView>
     <!-- Configurations Tab -->
     <p-tabPanel header="Configurations">
+      <div style="color: red;" *ngIf="errorMessages.length > 0" class="error-container">
+        <div *ngFor="let error of errorMessages" class="error-message">
+          {{ error }}
+        </div>
+      </div>
+      <div style="color: green;">
+        {{successMessage}}
+      </div>
       <div class="content">
         <app-form
           [config]="dynamicFormConfig"
@@ -62,7 +75,7 @@
             ></p-button>
           </div>
 
-          Add Vendor/Customer
+          Add Vendor and Customer
           <div
             style="
               display: flex;

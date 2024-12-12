@@ -1,3 +1,9 @@
+/**
+ * NAME: Aththanayake Lithira Senath Dasnaka Fernando
+ * UoW ID: w1959880
+ * IIT ID: 20223095
+ */
+
 import { CommonModule } from '@angular/common';
 import {
   Component,
@@ -30,9 +36,9 @@ export class FormComponent {
       value: any;
       name: string;
       label: string;
-      type: string; // 'text', 'select', 'checkbox', etc.
+      type: string; 
       required?: boolean;
-      options?: string[]; // Only for 'select' type
+      options?: string[]; 
       disabled?: boolean;
     }[];
   };
@@ -40,13 +46,29 @@ export class FormComponent {
   @Output() formSubmit = new EventEmitter<any>();
 
   formData: { [key: string]: any } = {};
+  initialData: { [key: string]: any } = {};
+  hasChanges: boolean = false;
+  isSubmitted: boolean = false;
+
   ngOnInit() {
     // Initialize formData with default values
-    this.config.fields.forEach((field) => {
+    this.config.fields.forEach(field => {
       this.formData[field.name] = field.value || '';
     });
+    this.initialData = { ...this.formData };
   }
+
+  onInputChange() {
+    this.hasChanges = Object.keys(this.formData).some(
+      (key) => this.formData[key] !== this.initialData[key]
+    );
+    this.isSubmitted = false;
+    
+  }
+
   onSubmit() {
     this.formSubmit.emit(this.formData);
+    this.isSubmitted = true;
+    this.hasChanges = false;
   }
 }
