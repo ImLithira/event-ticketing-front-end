@@ -38,19 +38,15 @@ The following are based as assumptions:
     running: *mvn clean install*
 
 3.  Once the project is loaded, navigate to the
-    TicketingSystemBEApplication.java (main class).\
-    ![A screenshot of a computer Description automatically
-    generated](vertopal_0ab4e28737ab48e380d24499cdd44515/media/image1.png){width="3.62508530183727in"
-    height="1.911897419072616in"}
+    TicketingSystemBEApplication.java (main class).
+    <img src='src/images/Screenshot 2024-12-12 000934.png'>
 
 4.  Click on the green play button or use Ctrl+Shift+F10 (Windows/Linux)
     or Cmd+Shift+F10 (Mac) to run the backend server.
 
 5.  The backend server should now be running locally on
-    *<http://localhost:8080>.\
-    *![A screenshot of a computer program Description automatically
-    generated](vertopal_0ab4e28737ab48e380d24499cdd44515/media/image2.png){width="3.610080927384077in"
-    height="1.91in"}
+    *<http://localhost:8080>*.
+    <img src='src/images/Screenshot 2024-12-12 001040.png'>
 
     1.  ### Frontend Project Setup
 
@@ -66,9 +62,10 @@ The following are based as assumptions:
 3.  In the terminal, execute the following command to start the frontend
     server: *ng serve*
 
-4.  The frontend should now be running at *http://localhost:4200.\
-    *![](vertopal_0ab4e28737ab48e380d24499cdd44515/media/image3.png){width="3.575662729658793in"
-    height="1.91in"}
+4.  The frontend should now be running at *<http://localhost:4200>.
+    *
+    <img src='src/images/Screenshot 2024-12-12 001347.png'>
+
 
 ```{=html}
 <!-- -->
@@ -87,9 +84,7 @@ The following are based as assumptions:
     -   Customer -- Upon clicking, navigates the user to the Customer
         page
 
-![A screenshot of a computer Description automatically
-generated](vertopal_0ab4e28737ab48e380d24499cdd44515/media/image4.png){width="4.042328302712161in"
-height="1.91in"}
+<img src='![alt text](<src/images/Screenshot 2024-12-12 001846.png>)'
 
 ### Admin Page
 
@@ -128,15 +123,11 @@ height="1.91in"}
 
     -   Upon successful submission, the user should be able to see a
         success message.\
-        ![A screenshot of a web page Description automatically
-        generated](vertopal_0ab4e28737ab48e380d24499cdd44515/media/image5.png){width="3.021975065616798in"
-        height="1.91in"}
+        <img src='src/images/Screenshot 2024-12-12 002722.png'>
 
     -   If the user enters invalid data, the user should be able to see
         the error messages.\
-        ![A screenshot of a computer Description automatically
-        generated](vertopal_0ab4e28737ab48e380d24499cdd44515/media/image6.png){width="3.6587445319335083in"
-        height="1.91in"}
+        <img src='src/images/Screenshot 2024-12-12 002829.png'>
 
     -   Upon clicking on the start button, the user starts the system
         and a log will be saved with the timestamp.
@@ -177,9 +168,7 @@ height="1.91in"}
 
     -   The user/admin has to simply click on the refresh button to view
         all released tickets by all vendors to the system.\
-        ![A screenshot of a computer Description automatically
-        generated](vertopal_0ab4e28737ab48e380d24499cdd44515/media/image7.png){width="6.13380905511811in"
-        height="1.91in"}
+        <img src='src/images/Screenshot 2024-12-12 003600.png'>
 
     -   Additionally, the admin can filter by searching based on the
         following:
@@ -201,8 +190,7 @@ height="1.91in"}
 
     -   The user/admin has to simply click on the refresh button to view
         all purchased tickets by all customers to the system.\
-        ![](vertopal_0ab4e28737ab48e380d24499cdd44515/media/image8.png){width="5.745158573928259in"
-        height="1.91in"}
+        <img src='src/images/Screenshot 2024-12-12 003908.png'>
 
     -   Additionally, the admin can filter by searching based on the
         following:
@@ -225,8 +213,7 @@ height="1.91in"}
 
     -   The user/admin has to simply click on the refresh button to view
         all logs in the system.\
-        ![](vertopal_0ab4e28737ab48e380d24499cdd44515/media/image9.png){width="4.384796587926509in"
-        height="1.91in"}
+        <img src='src/images/Screenshot 2024-12-12 004041.png'>
 
     -   Additionally, the admin can filter by searching based on the
         following:
@@ -266,8 +253,7 @@ height="1.91in"}
 
         -   Release Rate: Defines how frequently tickets are released by
             vendors (in seconds).\
-            ![](vertopal_0ab4e28737ab48e380d24499cdd44515/media/image10.png){width="3.021975065616798in"
-            height="1.3049431321084863in"}
+            <img src='src/images/Screenshot 2024-12-12 004049.png'>
 
     -   The add vendor button simply adds a vendor to the system.
 
@@ -277,8 +263,7 @@ height="1.91in"}
 
     -   The user/vendor has to simply click on the refresh button to
         view all released tickets to the system.\
-        ![](vertopal_0ab4e28737ab48e380d24499cdd44515/media/image11.png){width="4.341327646544182in"
-        height="1.91in"}
+        <img src='src/images/Screenshot 2024-12-12 004328.png'>
 
     -   Additionally, the vendor can filter by searching based on the
         following:
@@ -300,8 +285,7 @@ height="1.91in"}
 
     -   The user/vendor has to simply click on the refresh button to
         view all purchased tickets by all customers in the system.\
-        ![](vertopal_0ab4e28737ab48e380d24499cdd44515/media/image12.png){width="4.913649387576553in"
-        height="1.91in"}
+        <img src='src/images/Screenshot 2024-12-12 004543.png'>
 
     -   Additionally, the vendor can filter by searching based on the
         following:
@@ -347,8 +331,7 @@ height="1.91in"}
 
         -   Retrieval Rate: Defines how frequently tickets are purchased
             by customers (in seconds).\
-            ![](vertopal_0ab4e28737ab48e380d24499cdd44515/media/image13.png){width="3.021975065616798in"
-            height="1.2878182414698163in"}
+            <img src='src/images/Screenshot 2024-12-12 004637.png'>
 
     -   The add customer button simply adds a customer to the system.
 
@@ -358,8 +341,7 @@ height="1.91in"}
 
     -   The user/customer has to simply click on the refresh button to
         view all available tickets in the system.\
-        ![](vertopal_0ab4e28737ab48e380d24499cdd44515/media/image14.png){width="4.341327646544182in"
-        height="1.5209809711286089in"}
+        <img src='src/images/Screenshot 2024-12-12 004819.png'>
 
     -   If there aren't any available tickets, the table would display a
         "No Results" message.
@@ -383,8 +365,7 @@ height="1.91in"}
 
     -   The user/customer has to simply click on the refresh button to
         view all purchased tickets in the system.\
-        ![](vertopal_0ab4e28737ab48e380d24499cdd44515/media/image15.png){width="4.913649387576553in"
-        height="1.8541076115485564in"}
+        <img src='src/images/Screenshot 2024-12-12 004956.png'>
 
     -   Additionally, the customer can filter by searching based on the
         following:
@@ -448,4 +429,4 @@ along with their solutions:
 Please refer the demo video for further information:
 
 [Demo
-Video](https://inivossl-my.sharepoint.com/personal/lithira_senath_inivosglobal_com/Documents/UOW/OOP/Recording-20241211_213523.webm)
+Video](https://drive.google.com/file/d/133SdPpf5PaCpHitxD3SZppsteIrvUJNP/view?usp=sharing)
